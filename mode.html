@@ -59,12 +59,14 @@
 		<h4 class="card-title">抽选</h4>
 	</div>
 	<div id="draw_result" class="card-body" style="text-align: center">
+		<h2 id="pitch_h2" class="display-3"></h2>
 		<h2 id="result_h2" class="display-3">结果在此处</h2>
 		<h2 id="answer_h2" class="display-3"></h2>
 	</div>
 </div>
 
 <script src="modes.js"></script>
+<script src="chords.js"></script>
 
 <script>
 
@@ -88,6 +90,7 @@
 		}
 		result_f.html(question[0]);
 		answer_f.html(question[1]);
+		$("#pitch_h2").html(pitches[random(pitches.length)]);
     }
 
     function showAnswer(){
