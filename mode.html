@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="no">
+	<link rel="shortcut icon" href="./favicon.png">
+	<title>调式练习</title>
+	<script src="js/jquery-3.3.1.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+</head>
+<body>
+<div class="jumbotron text-center">
+	<h1 class="display-3">调式练习</h1>
+</div>
+<div class="card m-3">
+	<div class="card-header">
+		<h4 class="card-title">配置</h4>
+	</div>
+	<div id="conf_div" class="card-body">
+		<div class="row">
+			<div class="col-lg-2 m-auto">
+				<select name="difficulty" id="difficulty" class="form-control d-inline">
+					<option value="1">简单</option>
+					<option value="2">普通</option>
+					<option value="3">困难</option>
+				</select>
+			</div>
+			<div class="col-lg-2 m-auto">
+				<input id="always_show_answer" type="checkbox" checked onchange="onShowAnswerToggleChange()">
+				<label for="always_show_answer">总是显示答案</label>
+			</div>
+		</div>
+		<a href="index.html"
+		   class="btn btn-lg btn-block mt-1 btn-secondary">切换到和弦练习
+		</a>
+		<div class="row">
+			<div class="col-lg-4 m-auto">
+				<button id="draw_button" onclick="draw()"
+				        class="btn btn-lg btn-block btn-primary mt-1">抽选
+				</button>
+			</div>
+			<div class="col-lg-4 m-auto">
+				<button id="show_ans_button" onclick="showAnswer()"
+				        class="btn btn-lg btn-block btn-primary mt-1">显示答案
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card bg-dark text-white m-3" id="result_div">
+	<div class="card-header">
+		<h4 class="card-title">抽选</h4>
+	</div>
+	<div id="draw_result" class="card-body" style="text-align: center">
+		<h2 id="result_h2" class="display-3">结果在此处</h2>
+		<h2 id="answer_h2" class="display-3" hidden></h2>
+	</div>
+</div>
+
+<script src="modes.js"></script>
+
+<script>
+
+    String.prototype.replaceAll = function (s1, s2) {
+        return this.replace(new RegExp(s1, "gm"), s2);
+    };
+
+    function draw() {
+		let difficulty = $("#difficulty").val();
+		let result_f = $("#result_h2");
+		let answer_f = $("#answer_h2");
+		let question;
+        if(!showAnswerSettingOn()){
+            answer_f.attr("hidden","");
+        }
+        console.log(difficulty);
+		switch(difficulty){
+			case "1":question = modes_easy[random(modes_easy.length)];break;
+			case "2":question = modes_normal[random(modes_normal.length)];break;
+			case "3":question = modes_hard[random(modes_hard.length)];break;
+		}
+		result_f.html(question[1]);
+		answer_f.html(question[0]);
+    }
+
+    function showAnswer(){
+        $("#answer_h2").removeAttr("hidden");
+    }
+
+    function random(max) {
+        return parseInt(Math.random() * max);
+    }
+
+    function showAnswerSettingOn(){
+        return $("#always_show_answer").is(":checked");
+    }
+
+    function onShowAnswerToggleChange(){
+        if(showAnswerSettingOn()){
+            showAnswer();
+        }
+    }
+
+</script>
+
+</body>
+</html>
