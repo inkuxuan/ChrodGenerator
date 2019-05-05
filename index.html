@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="no">
+	<link rel="shortcut icon" href="./favicon.ico">
+	<title>和弦练习</title>
+	<script src="js/jquery-3.3.1.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+</head>
+<body>
+<div class="jumbotron text-center">
+	<h1 class="display-3">和弦练习</h1>
+</div>
+<div class="card m-3">
+	<div class="card-header">
+		<h4 class="card-title">配置</h4>
+	</div>
+	<div id="conf_div" class="card-body">
+		<div class="row">
+
+		</div>
+		<button id="draw_button" onclick="draw()"
+		        class="btn btn-lg btn-block btn-primary mt-1">抽选
+		</button>
+	</div>
+</div>
+
+<div class="card bg-dark text-white m-3" id="result_div">
+	<div class="card-header">
+		<h4 class="card-title">抽选</h4>
+	</div>
+	<div id="draw_result" class="card-body" style="text-align: center">
+		<h2 id="result_h2" class="display-3">结果在此处</h2>
+	</div>
+</div>
+
+<script src="chords.js"></script>
+
+<script>
+
+    String.prototype.replaceAll = function (s1, s2) {
+        return this.replace(new RegExp(s1, "gm"), s2);
+    };
+
+    function draw(){
+        let pitch = pitches[random(pitches.length)];
+        let chord = chords[random(chords.length)];
+        $("#result_h2").html(pitch + chord);
+    }
+
+    function random(max){
+        return parseInt(Math.random() * max);
+    }
+
+</script>
+
+</body>
+</html>
